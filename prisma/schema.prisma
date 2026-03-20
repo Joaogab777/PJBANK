@@ -14,37 +14,32 @@ model Cliente {
   email    String   @unique
   telefone String?
   criadoEm DateTime @default(now())
-
-  contas Conta[]
+  contas   Conta[]
 }
 
 model Conta {
-  id       String   @id @default(uuid())
-  numero   String   @unique @default(cuid())
-  saldo    Float    @default(0)
-  limite   Float    @default(0)
-  ativa    Boolean  @default(true)
-  criadoEm DateTime @default(now())
-
-  clienteId String
-  cliente   Cliente @relation(fields: [clienteId], references: [id])
-
-  transacoesEnviadas  Transacao[] @relation("ContaOrigem")
+  id                  String      @id @default(uuid())
+  numero              String      @unique @default(cuid())
+  saldo               Float       @default(0)
+  limite              Float       @default(0)
+  ativa               Boolean     @default(true)
+  criadoEm            DateTime    @default(now())
+  clienteId           String
+  cliente             Cliente     @relation(fields: [clienteId], references: [id])
   transacoesRecebidas Transacao[] @relation("ContaDestino")
+  transacoesEnviadas  Transacao[] @relation("ContaOrigem")
 }
 
 model Transacao {
-  id        String        @id @default(uuid())
-  tipo      TipoTransacao
-  valor     Float
-  descricao String?
-  criadoEm  DateTime      @default(now())
-
-  contaOrigemId String?
-  contaOrigem   Conta?  @relation("ContaOrigem", fields: [contaOrigemId], references: [id])
-
+  id             String        @id @default(uuid())
+  tipo           TipoTransacao
+  valor          Float
+  descricao      String?
+  criadoEm       DateTime      @default(now())
+  contaOrigemId  String?
   contaDestinoId String?
-  contaDestino   Conta?  @relation("ContaDestino", fields: [contaDestinoId], references: [id])
+  contaDestino   Conta?        @relation("ContaDestino", fields: [contaDestinoId], references: [id])
+  contaOrigem    Conta?        @relation("ContaOrigem", fields: [contaOrigemId], references: [id])
 }
 
 enum TipoTransacao {
