@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PJBANK - Sistema Bancário
 
-## Getting Started
+Um protótipo de sistema bancário desenvolvido com **Next.js**, **Prisma** e **Supabase (PostgreSQL)**.
 
-First, run the development server:
+## 🚀 Como Rodar o Projeto
+
+Siga os passos abaixo para configurar o projeto em sua máquina local.
+
+### 1. Pré-requisitos
+
+Certifique-se de ter instalado:
+- [Node.js](https://nodejs.org/) (versão 18 ou superior)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+
+### 2. Clonar o Repositório
+
+```bash
+git clone <url-do-seu-repositorio>
+cd pjbank
+```
+
+### 3. Configurar as Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto e adicione as suas credenciais do **Supabase**. Você pode encontrar essas URLs no painel do Supabase em `Settings > Database`.
+
+```env
+# URL do Connection Pooler (Transaction Mode - Porta 6543 ou 5432 dependendo da config)
+DATABASE_URL="postgres://postgres.[seuid]:[suasenha]@aws-0-sa-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+# URL de Conexão Direta (Session Mode - Porta 5432)
+DIRECT_URL="postgres://postgres.[seuid]:[suasenha]@db.[seuid].supabase.co:5432/postgres"
+```
+
+> **Nota:** É importante usar o `DIRECT_URL` para as migrações do Prisma funcionarem corretamente no Supabase.
+
+### 4. Instalar Dependências
+
+Instale os pacotes do projeto. Isso também executará o `prisma generate` automaticamente através do script `postinstall`.
+
+```bash
+npm install
+```
+
+### 5. Sincronizar o Banco de Dados
+
+Para criar as tabelas no seu banco de dados Supabase de acordo com o schema do Prisma:
+
+```bash
+# Se você estiver apenas começando e quiser subir o schema rápido:
+npm run db:push
+
+# Ou, para rodar as migrações existentes:
+npm run db:migrate
+```
+
+### 6. Iniciar o Servidor de Desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O projeto estará disponível em [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tecnologias Utilizadas
 
-## Learn More
+- **Next.js 15+**: Framework React para o frontend e API routes.
+- **Prisma**: ORM para manipulação do banco de dados.
+- **Supabase**: Banco de dados PostgreSQL escalável.
+- **Tailwind CSS**: Estilização moderna e responsiva.
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Estrutura do Projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/app`: Páginas e rotas da aplicação (Next.js App Router).
+- `/app/api`: Endpoints da API para operações bancárias.
+- `/prisma`: Configurações de schema e migrações do banco de dados.
+- `/public`: Assets estáticos.
