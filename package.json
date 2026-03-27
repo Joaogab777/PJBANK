@@ -7,9 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev"
+    
+    "db:generate": "node scripts/generate-db.js",
+    "db:push": "node scripts/setup-db.js push",
+    "db:migrate": "node scripts/setup-db.js migrate",
+    "db:studio": "npx prisma studio",
+    "db:test": "node scripts/test-db.js",
+    
+    "db:use:postgres": "node scripts/switch-db.js postgresql",
+    "db:use:sqlite": "node scripts/switch-db.js sqlite",
+    "db:status": "node scripts/switch-db.js status"
   },
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.72",
